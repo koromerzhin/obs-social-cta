@@ -1,0 +1,336 @@
+:root {
+    --background: rgba(15, 15, 20, 0.92);
+    --text: #ffffff;
+    --muted: rgba(255, 255, 255, 0.65);
+
+    --like: #3b82f6;
+    --comment: #a855f7;
+    --share: #14b8a6;
+    --subscribe: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+/*
+ * ---------------------------------------------------------
+ * CTA
+ * ---------------------------------------------------------
+ */
+
+.cta {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-width: 330px;
+    max-width: 430px;
+
+    padding: 14px 20px 14px 14px;
+
+    border-radius: 18px;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(30, 30, 38, 0.96),
+            var(--background)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(12px);
+
+    opacity: 0;
+
+    transform:
+        translateY(35px)
+        scale(0.92);
+
+    pointer-events: none;
+
+    transition:
+        opacity 450ms ease,
+        transform 550ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.cta.visible {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+/*
+ * ---------------------------------------------------------
+ * ICON
+ * ---------------------------------------------------------
+ */
+
+.cta__icon {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 8px 25px var(--accent-shadow);
+
+    transform: scale(0);
+
+    transition:
+        transform 500ms cubic-bezier(.16, 1.3, .3, 1);
+}
+
+.cta.visible .cta__icon {
+    transform: scale(1);
+}
+
+.cta__icon span {
+    font-size: 28px;
+
+    filter:
+        drop-shadow(
+            0 2px 4px rgba(0, 0, 0, 0.2)
+        );
+}
+
+/*
+ * ---------------------------------------------------------
+ * TEXT
+ * ---------------------------------------------------------
+ */
+
+.cta__content {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-left: 15px;
+
+    min-width: 0;
+}
+
+.cta__eyebrow {
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.12em;
+}
+
+.cta__message {
+    font-size: 20px;
+
+    line-height: 1.15;
+
+    white-space: nowrap;
+}
+
+/*
+ * ---------------------------------------------------------
+ * PROGRESS BAR
+ * ---------------------------------------------------------
+ */
+
+.cta__progress {
+    position: absolute;
+
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+
+    height: 3px;
+
+    overflow: hidden;
+
+    border-radius: 99px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.cta__progress span {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    background: var(--accent);
+
+    border-radius: inherit;
+}
+
+.cta.visible .cta__progress span {
+    animation:
+        progress var(--display-time, 3400ms) linear forwards;
+}
+
+@keyframes progress {
+
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+
+}
+
+/*
+ * ---------------------------------------------------------
+ * PARTICLES
+ * ---------------------------------------------------------
+ */
+
+.cta::before,
+.cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.cta.visible::before {
+    animation: particle-one 900ms ease-out;
+}
+
+.cta.visible::after {
+    animation: particle-two 900ms ease-out;
+}
+
+@keyframes particle-one {
+
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-45px, -30px) scale(0.3);
+    }
+
+}
+
+@keyframes particle-two {
+
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(45px, -25px) scale(0.3);
+    }
+
+}
+
+/*
+ * ---------------------------------------------------------
+ * MOBILE / PETITE SOURCE OBS
+ * ---------------------------------------------------------
+ */
+
+@media (max-width: 500px) {
+
+    .cta {
+        min-width: 280px;
+
+        padding:
+            11px
+            16px
+            11px
+            11px;
+    }
+
+    .cta__icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .cta__icon span {
+        font-size: 23px;
+    }
+
+    .cta__message {
+        font-size: 17px;
+    }
+
+}
